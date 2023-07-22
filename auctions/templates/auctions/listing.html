@@ -1,0 +1,118 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+{% block body %}
+<div class="container-lg my-5">
+  <div class="row py-5">
+    <div class="col-lg-6 mb-5">
+      <div class="image-wrapper d-flex align-items-center">
+        {% if image %}
+        <img src="{{ image }}" class="img-fluid p-3 d-inline-block mx-auto listins-view-img" alt="">
+        {% else %}
+        <img src="{% static 'auctions/images/No_Image_Available.jpg' %}" class="img-fluid p-3 d-inline-block mx-auto listins-view-img" alt="">
+        {% endif %}
+      </div>
+    </div>
+    <div class="col-lg-6 mb-5">
+      <h1 class="font-weight-bold text-raisin title-listing-view mb-5">{{ title }} <span class="desc-title ">{{ description }}</span></h1>
+      <ul class="list-unstyled mb-4">
+        <li >
+          {%if category %}
+            <h6 class="text-muted">Category: {{ category }}</h6>
+          {% endif %}
+        </li>
+        <li>
+          {%if condition %}
+            <h6 class="text-muted">Condition: {{ condition }}</h6>
+          {% endif %}
+        </li>
+        <li>
+          <h6>Listed by: <a href="#">{{ user_listing }}</a> </h6>
+        </li>
+        <li>
+          {% if current_bid %}
+          <h6 class="before-bid text-muted">initial bid: <b>${{ initialBid }}</b></h6>
+          <h6>Current bid: <b>${{ current_bid }}</b></h6>
+          {% else %}
+          <h6 class="">initial bid: <b>${{ initialBid }}</b></h6>
+          {% endif %}
+          <h6>id: {{ user }}</b></h6>
+          {{user_watchlist}}
+        </li>
+      </ul>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <form action="{% url 'auctions:place_a_bid' listing_id%}" method="post">    
+                {% csrf_token %}                  
+                <div class="modal-header bg-raisin">
+                  <h5 class="modal-title text-white" id="exampleModalLabel">Place a bid</h5>
+                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <div class="modal-body">
+                <h3 class="mb-4">US {{current_bid}}</h3>
+
+                  <div class="form-group form-inline">                            
+                      <label for="bidInput" class="mr-2">Place your bid:</label>
+                      <input type="number" class="form-control" name="new_bid" id="bidInput" placeholder="bid">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <input type="submit" class="btn btn-raisin text-white" value="place a bid"/>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        {{user_listing}}
+        {% if user.is_authenticated and user.username != user_listing %}
+          <button type="button" class="btn btn-raisin rounded-pill w-bid d-block mx-auto my-2" data-toggle="modal" data-target="#exampleModal">Place bid</button>
+          
+          {% comment %} <a href="{% url 'auctions:login' %}" style="display:none" type="button" class="btn btn-raisin rounded-pill w-bid d-block mx-auto my-2 disabled d-none">Place bid</a> {% endcomment %}
+        {% endif %}
+         {% if user.is_authenticated and listing_id not in user_watchlist_id  %}
+          <a href="{% url 'auctions:add_watchinglist'  listing_id %}" type="button" class="btn btn-outlined-raisin rounded-pill w-bid d-block mx-auto my-2"><i class="fa-solid fa-heart"></i> Add to watchlist</a>
+        {% elif user.is_authenticated and listing_id in user_watchlist_id %}
+          <a href="{% url 'auctions:remove_watchinglist'  listing_id %}" type="button" class="btn btn-outline-danger rounded-pill w-bid d-block mx-auto my-2"><i class="fa-regular fa-circle-xmark"></i> Remove from watchlist</a>
+        {% else %}
+          <a href="{% url 'auctions:login' %}" type="button" class="btn btn-outlined-raisin rounded-pill w-bid d-block mx-auto my-2"><i class="fa-solid fa-heart"></i> Add to watchlist</a>
+        {% endif %} 
+
+        {% if request.user == listing_user %}
+        <a href="{% url 'auctions:close_bid' listing_id%}" class="btn btn-danger rounded-pill w-bid d-block mx-auto my-2">Close your Bid</a>
+        {% endif %}
+
+        {% if bid_error_msg %}
+          <h4 class="text-danger text-center">{{ bid_error_msg }}</h4>
+        {% endif%}
+    </div>
+  </div>
+
+  {% if comments %}
+  <h5 class="text-title font-weight-bold text-center mb-5">Comments:</h5>
+  {% endif %}
+  {% for comment in comments %}
+  <div class="border-bottom mb-5">
+    <h6 class="font-weight-bold mt-5">{{ comment.user}}</h6>
+    <i class="fa-duotone fa-corner"></i>
+    <p class="mb-3 text-muted ml-2"> {{ comment.comment }}</p>
+  </div>
+  {% endfor %}
+  
+  {% if user.is_authenticated %}
+  <div class="row mb-5">
+    <div class="col-12 mt-3">
+      <form action="{% url 'auctions:add_comment' listing_id %}" method="post">
+        {% csrf_token %}
+        <label for="comment">Add your comment</label>
+        <textarea name="comment" class="form-control mb-4" id="comment" id="" cols="30" rows="4" placeholder="Write your comment"></textarea>
+        <input type="submit" value="Submit" class="btn btn-raisin d-block mx-auto">
+      </form>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

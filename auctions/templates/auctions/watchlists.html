@@ -1,0 +1,29 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container-lg my-5">
+  <h1 class="text-center mb-md-5 title-text font-weight-bold">Watchlists</h1>
+  <div class="row  pb-5">
+    {% for listing in active_listings %}
+    <div class="col-12 col-md-6 col-lg-3 mb-4">
+      <div class="card commerce-card h-100 px-2">
+        <a href="{% url 'auctions:listing' listing.id %}" class="listing-link">
+          <img src="{{ listing.image }}" class="img-fluid listing-img" alt="{{ listing.title }}">
+        </a>
+        <div class="card-body px-0 d-flex flex-column">
+          <h5 class="card-title listing-title mb-0">{{ listing.title }}</h5>
+          <div class="d-flex justify-content-between align-items-end">
+            <h6 class="card-subtitle mb-2 text-raisin">{{ listing.category }}</h6>
+            <h5 class="card-title text-raisin font-weight-bold">$ {{ listing.initialBid }}</h5>
+          </div>
+            <p class="card-text">{{ listing.description }}</p>
+        </div>
+          <a href="{% url 'auctions:listing' listing.id %}" class="btn btn-raisin d-block mx-auto mt-auto mb-2 w-100">Go somewhere</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}

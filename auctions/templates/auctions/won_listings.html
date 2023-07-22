@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container-lg my-5">
+  <h1 class="text-center mb-md-5 title-text font-weight-bold">Won Listings!</h1>
+  <div class="row pb-5">
+    {% for listing in won_listings %}
+    <div class="col-12">
+      <div class="card mb-3" style="">
+        <div class="row no-gutters">
+          <div class="col-md-4 px-3">
+            <div class="img-wrapper">
+              <img src="{{ listing.image }}" class="img-fluid listing-img" alt="">
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card-body d-flex flex-column h-100">
+              <h5 class="card-title">{{ listing.title }}</h5>
+              <p class="card-text">{{ listing.description }}</p>
+  
+              <ul class="list-unstyled">
+                <li >
+                  {%if listing.category %}
+                    <h6 class="text-muted">Category: {{ listing.category }}</h6>
+                  {% endif %}
+                </li>
+                <li>
+                  {%if listing.condition %}
+                    <h6 class="text-muted">Condition: {{ listing.condition }}</h6>
+                  {% endif %}
+                </li>
+                <li>
+                  <h6>Listed by: <a href="#">{{ listing.user.username }}</a> </h6>
+                </li>
+              </ul>
+              
+              <div class="alert alert-success mt-auto" role="alert">
+                <h5 class="mb-0"> Congratulations! You have won this auction. Your winning bid: $ {{ listing.current_bid }}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

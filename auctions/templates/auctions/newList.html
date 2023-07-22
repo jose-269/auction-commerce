@@ -1,0 +1,49 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+  <div class="container my-5">
+    <div class="row py-5">
+      <div class="col-md-8 mb-5">
+  
+        <h4 class="mb-3 title-text font-weight-bold">New list</h4>
+        
+        <form action="{% url 'auctions:newList' %}" method="post" class="row">
+          {% csrf_token %}
+          <div class="col-md-6">
+            <label class="mb-0" for="title">Title</label>
+            {% comment %} <input type="text" id="title" class="form-control mb-3" placeholder="title" name="title" required /> {% endcomment %}
+            {{ form.title }}
+          </div>
+          <div class="col-md-6">
+            <label class="mb-0" for="bid">Initial bid ($)</label>
+            {{ form.initialBid }}
+          </div>
+          <div class="col-md-4">
+            <label class="mb-0" for="image">Image (url)</label>
+            {{ form.image }}
+          </div>
+          <div class="col-md-4">
+            <label for="category" class="mb-0">Category</label>
+            {{ form.category }}
+          </div>
+          <div class="col-md-4">
+            <label for="category" class="mb-0">Condition</label>
+            {{ form.condition }}
+          </div>
+          <div class="col-12">
+            <label class="mb-0" for="">Description</label>
+            {{ form.description }}
+          </div>
+  
+          <input type="submit" class="btn btn-success d-block mx-auto mb-5" value="Submit">
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+   {% if username %}
+        <h1>{{username}}</h1>
+    {% endif %} 
+
+{% endblock %}

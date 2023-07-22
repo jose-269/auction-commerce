@@ -1,0 +1,109 @@
+
+:root {
+    --raisin-black: #37323e;
+    --gold: #deb841;
+    --dim-gray: #6d6a75;
+    --hunyadi-yellow: #de9e36;
+}
+
+* {
+    box-sizing: border-box;
+}
+.bg-raisin {
+    background-color: var(--raisin-black);
+}
+.title-text {
+    color: var(--raisin-black);
+    font-size: 2rem;
+}
+.commerce-card {
+    border: 1px solid var(--dim-gray);
+}
+.btn-raisin {
+    background-color: var(--raisin-black);
+    color: #fff;
+}
+.btn-raisin:hover {
+    background-color: var(--hunyadi-yellow);
+    color: var(--raisin-black);
+}
+.btn-outlined-raisin {
+    border: 1px solid var(--raisin-black);
+    background-color: #fff;
+    color: var(--raisin-black);
+}
+.btn-hunyadi {
+    background-color: var(--hunyadi-yellow);
+    color: #fff;
+}
+.btn-hunyadi:hover {
+    background-color: var(--hunyadi-yellow);
+    color: var(--raisin-black);
+}
+.btn-outlined-hunyadi {
+    border: 1px solid var(--hunyadi-yellow);
+    background-color: var(--raisin-black);
+    color: var(--hunyadi-yellow);
+}
+.text-raisin {
+    color: var(--raisin-black);
+}
+.text-hunyadi {
+    color: var(--hunyadi-yellow) !important;
+}
+.listing-link, .img-wrapper {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%; 
+    position: relative;
+}
+.listing-link {
+    border-bottom: 1px solid var(--raisin-black);
+}
+.listing-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.listins-view-img {
+    max-height: 437px;
+}
+.listing-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--raisin-black)
+}
+.image-wrapper {
+    border: 1px solid var(--raisin-black);
+    border-radius: 8px;
+    height: 460px;
+}
+.title-listing-view{
+    font-size: 28px;
+}
+.w-bid {
+    width: 300px;
+}
+.link-watchlist {
+    position: relative;
+}
+.watchlist-badge {
+    position: absolute;
+    top: 4px;
+}
+.before-bid {
+    text-decoration: line-through;
+    font-size: 15px;
+}
+footer {
+    background-color: var(--raisin-black);
+}
+.auction-wrapper, .login-view {
+    height: 60vh;
+}
+.footer-list {
+    list-style: none;
+}

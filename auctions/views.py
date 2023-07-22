@@ -341,7 +341,7 @@ def remove_watchinglist(request, listing_id):
     if user_request:
         listing = Listings.objects.get(pk=listing_id)
         watchlist = Watchlist.objects.filter(user=user_request, listings=listing).first() #give NONE if not exist
-        # print(watchlist)
+        print(watchlist)
         watchlist.delete()
         return redirect("auctions:listing", listing_id)
 

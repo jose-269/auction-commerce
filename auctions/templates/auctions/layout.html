@@ -32,9 +32,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-white" href="{% url 'auctions:newList' %}">New List</a>
                         </li>
+                        {% if watchlist_length %}
                         <li class="nav-item">
                             <a class="nav-link link-watchlist text-white" href="{% url 'auctions:watchlists' %}">watchlist<span class="badge badge-secondary ml-1 watchlist-badge">{{ watchlist_length }}</span></a>
                         </li>
+                        {% endif %}
                         {% if won_listings %}
                         <li class="nav-item btn-outlined-hunyadi   ml-3 rounded">
                             <a href="{% url 'auctions:won_listings' %}" class="nav-link text-hunyadi">Won Listings!</a> 

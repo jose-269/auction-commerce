@@ -35,8 +35,8 @@
           {% else %}
           <h6 class="">initial bid: <b>${{ initialBid }}</b></h6>
           {% endif %}
-          <h6>id: {{ user }}</b></h6>
-          {{user_watchlist}}
+          {% comment %} <h6>id: {{ user }}</b></h6>
+          {{user_watchlist}} {% endcomment %}
         </li>
       </ul>
         <!-- Modal -->
@@ -52,8 +52,11 @@
                   </button>
                 </div>
               <div class="modal-body">
+                {% if not current_bid %}
+                <h3 class="mb-4">US {{initialBid}}</h3>
+                {% else %}
                 <h3 class="mb-4">US {{current_bid}}</h3>
-
+                {% endif %}
                   <div class="form-group form-inline">                            
                       <label for="bidInput" class="mr-2">Place your bid:</label>
                       <input type="number" class="form-control" name="new_bid" id="bidInput" placeholder="bid">
@@ -67,7 +70,6 @@
             </form>
           </div>
         </div>
-        {{user_listing}}
         {% if user.is_authenticated and user.username != user_listing %}
           <button type="button" class="btn btn-raisin rounded-pill w-bid d-block mx-auto my-2" data-toggle="modal" data-target="#exampleModal">Place bid</button>
           

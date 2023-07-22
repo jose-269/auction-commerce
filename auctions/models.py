@@ -12,6 +12,7 @@ class Comments(models.Model):
     
     def __str__(self):
         return f"Comment by: {self.user.username} Comment: {self.comment}"
+    
 
 class Listings(models.Model):
 
@@ -46,5 +47,5 @@ class Bid(models.Model):
     new_bid = models.IntegerField()
 
     def __str__(self):
-        return f"Bid by: {self.user}, listing: {self.listing} Amount: {self.new_bid}"
+        return f"Bid by: {self.user}, listing: {self.listing.title} Amount: {self.new_bid}"
 
